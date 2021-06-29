@@ -1,8 +1,8 @@
 <?php
 
 require 'functions.php';
-
-query("SELECT * FROM student");
+//apa2 variable
+$students = query("SELECT * FROM student");
 
 //ambil data dari database college dari table mana mana.
 //$result = mysqli_query($conn, " SELECT * FROM student ");
@@ -37,13 +37,20 @@ query("SELECT * FROM student");
     <title>AMBIK DATA</title>
 </head>
 
+<h1>Student Data</h1>
+
+<a href="tambahdata.php"> Add data.. </a>
+<br></br>
 <body>
+
+
 
     <table border="1" cellpadding="10" cellspaceing="0">
 
 
             <tr>
                 <th>Bil.</th>
+                <th>Action</th>
                 <th>Name</th>
                 <th>Student ID</th>
                 <th>Course</th>
@@ -53,18 +60,24 @@ query("SELECT * FROM student");
 
 <?php $i = 1 ; ?>
 
-<?php while ($student = mysqli_fetch_assoc($result)) : ?>
+<?php //pakai foreach sbb berbentuk array ?>
+<?php foreach ($students as $std) : ?>
+
             <tr>
             <td> <?= $i; ?> </td>
-            <td> <a href="">Update | Delete </a></td>
-            <td> <?= $student["name"]; ?> </a></td>
-            <td> <?= $student["course"]; ?> </a></td>
-            <td> <?= $student["email"]; ?> </a></td>
-            <td> <?= $student["photo"]; ?> </a></td>
+            <td> <a href="">Update </a>|
+             <a href="delete.php?id=<?= $std["id"]; ?> "onclick=" return confirm('are you sure to delete this?');"> Delete </a></td>
+             
+            <td> <?= $std["name"]; ?> </a></td>
+            <td> <?= $std["student_id"]; ?> </a></td>
+            <td> <?= $std["course"]; ?> </a></td>
+            <td> <?= $std["email"]; ?> </a></td>
+            <td> <?= $std["photo"]; ?> </a></td>
+
             </tr>
    <?php $i++ ?>
 
-<?php endwhile; ?>
+<?php endforeach; ?>
 
     </table>
 

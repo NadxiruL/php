@@ -1,34 +1,23 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "", "college");
+require 'functions.php';
 
 //cek jika button submit dah ditekan atau belom..
 
 if(isset($_POST["submit"])) {
 
-    //ambil data yang ditulis dari setiap fields.
-    $name = $_POST["name"];
-    $studentid = $_POST["studentid"];
-    $email = $_POST["email"];
-    $course = $_POST["course"];
-    $photo = $_POST["photo"];
-
-    
-    //query statement untuk insert data
-
-    $query = "INSERT INTO student VALUES ('' , '$name' , '$studentid' , '$email' , '$course' , '$photo')" ;
-
-    mysqli_query($conn , $query);
-
     //cek adakah data berjaya dimasukkan
+    if (addData($_POST) > 0 ) {
 
-    if ( mysqli_affected_rows($conn)) {
+        echo " <script>alert('data successfully added !');
+                document.location.href = 'ambikdata.php';
+               </script>";
+    
+    } else
 
-        echo "berjaya!";
-
-    } else 
-
-    echo "gagal!";
+    echo " <script>alert('data unsuccessfully added !');
+                document.location.href = 'ambikdata.php';
+               </script>";
 
 }
 
@@ -53,7 +42,7 @@ if(isset($_POST["submit"])) {
         <ul>
             <li>
                 <label for="name">Name : </label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" required>
             </li>
             <li>
                 <label for="studentid">Student Id : </label>
